@@ -73,3 +73,8 @@ To lint your front-end code, use `npm run lint`.
 To test your smart contracts, run `npx hardhat test`.
 
 A sample test can be found in `test/sample-test.js`.
+
+## Roadmap
+
+- Deploy the greeter smart contract to a live test network
+- Add a [smart contract for minting NFTs](https://docs.openzeppelin.com/contracts/3.x/erc721)
