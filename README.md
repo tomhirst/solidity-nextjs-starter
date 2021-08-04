@@ -1,14 +1,19 @@
 # A full stack dApp starter built on Ethereum (Solidity) with Next.js (React)
 
+This repo contains boilerplate code for interacting with a simple smart contract from the client-side using [Solidity](https://soliditylang.org/), [React](https://reactjs.org/) and [TailwindCSS](https://tailwindcss.com/).
+
 ## Prerequisites
 
-[MetaMask wallet browser extension](https://metamask.io/download.html).
+- [Node.js](https://nodejs.org/en/download/)
+- [MetaMask wallet browser extension](https://metamask.io/download.html).
 
 ## Getting Started
 
 ### Environment Setup
 
-Duplicate `.env.example` to `.env` and fill out the environment variables.
+Duplicate `.env.example` to `.env` and fill out the `HARDHAT_CHAIN_ID` environment variable.
+
+Run `npm install`.
 
 ### Running The Smart Contract Locally
 
@@ -41,4 +46,30 @@ If you're successful, you should see the a balance resembling something like `99
 
 ### Connecting The Front-End
 
+In `.env` set the `NEXT_PUBLIC_GREETER_ADDRESS` environment variable to the address your smart contract was deployed to. For example, `0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0`.
+
 In a new terminal window, load the front-end with `npm run dev`. If you want to use an alternate port from `3000`, use `npm run dev -- --port=1234`, or whatever port number you prefer.
+
+## Demo'ing the functionality
+
+Once set up, go to `localhost:3000` (or whatever post number you used), to view your dApp in the browser.
+
+Clicking `Fetch greeting from the blockchain` should bring back a value of `Hello world!` in the input above. This is the default string passed to the smart contract on first deloy.
+
+To update the greeting value, type something in the input with placeholder `Write a new greeting`, then click `Set new greeting on the blockchain`. If you're successful, a MetaMask window will open in your browser. From here you can connect the local account you added earlier and sign the transaction.
+
+Click `Fetch greeting from the blockchain` again to see the changes you've made.
+
+## Editing The Front-End
+
+To modify the front page of your application, edit `pages/index.js`.
+
+All [TailwindCSS classes](https://tailwindcss.com/docs) are available to you.
+
+To lint your front-end code, use `npm run lint`.
+
+## Testing
+
+To test your smart contracts, run `npx hardhat test`.
+
+A sample test can be found in `test/sample-test.js`.
