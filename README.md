@@ -118,7 +118,7 @@ Post deployment, you should also see your ETH decrease a little in MetaMask from
 
 ### Etherscan
 
-Because your smart contract is now deployed to a live test network, you'll be able to view it's details on [Etherscan](https://ropsten.etherscan.io/). Go to [Ropsten Etherscan](https://ropsten.etherscan.io/) and copy and paste the address you were given in the previous step (for example, `0x9045cEc7161f380C224ae95c15EbE96659A53c46`)into the explorer.
+Because your smart contract is now deployed to a live test network, you'll be able to view it's details on [Etherscan](https://ropsten.etherscan.io/). Go to [Ropsten Etherscan](https://ropsten.etherscan.io/) and copy and paste the address you were given in the previous step (for example, `0x9045cEc7161f380C224ae95c15EbE96659A53c46`) into the explorer.
 
 You'll be able to see all historical transactions and events here.
 
