@@ -16,8 +16,13 @@ export default function Home() {
     async function setConnectedWalletAddress() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner()
-      const signerAddress = await signer.getAddress()
-      setConnectedWalletAddressState(signerAddress)
+      try {
+        const signerAddress = await signer.getAddress()
+        setConnectedWalletAddressState(signerAddress)
+      } catch(error) {
+        console.log(error)
+        return;
+      }
     }
     setConnectedWalletAddress();
   },[])
@@ -35,7 +40,7 @@ export default function Home() {
     try {
       const data = await contract.greet()
       setGreetingState(data)
-    } catch( error ) {
+    } catch(error) {
       console.log(error)
     }
   }
