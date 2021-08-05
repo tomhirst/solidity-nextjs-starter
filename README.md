@@ -78,3 +78,4 @@ A sample test can be found in `test/sample-test.js`.
 
 - Deploy the greeter smart contract to a live test network
 - Add a [smart contract for minting NFTs](https://docs.openzeppelin.com/contracts/3.x/erc721)
+- Create a TypeScript fork
