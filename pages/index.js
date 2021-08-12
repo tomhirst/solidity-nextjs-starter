@@ -13,14 +13,18 @@ export default function Home() {
 
   // If wallet is already connected...
   useEffect( () => {
+    if(! hasEthereum()) {
+      setConnectedWalletAddressState(`MetaMask unavailable`)
+      return
+    }
     async function setConnectedWalletAddress() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner()
       try {
         const signerAddress = await signer.getAddress()
-        setConnectedWalletAddressState(signerAddress)
-      } catch(error) {
-        console.log(error)
+        setConnectedWalletAddressState(`Connected wallet: ${signerAddress}`)
+      } catch {
+        setConnectedWalletAddressState('No wallet connected')
         return;
       }
     }
@@ -34,7 +38,10 @@ export default function Home() {
 
   // Call smart contract, fetch current value
   async function fetchGreeting() {
-    if ( ! hasEthereum() ) return
+    if ( ! hasEthereum() ) {
+      setConnectedWalletAddressState(`MetaMask unavailable`)
+      return
+    }
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const contract = new ethers.Contract(process.env.NEXT_PUBLIC_GREETER_ADDRESS, Greeter.abi, provider)
     try {
@@ -47,7 +54,10 @@ export default function Home() {
 
   // Call smart contract, set new value
   async function setGreeting() {
-    if(! hasEthereum()) return
+    if ( ! hasEthereum() ) {
+      setConnectedWalletAddressState(`MetaMask unavailable`)
+      return
+    }
     if(! newGreeting ) {
       setNewGreetingMessageState('Add a new greeting first.')
       return
@@ -56,7 +66,7 @@ export default function Home() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner()
     const signerAddress = await signer.getAddress()
-    setConnectedWalletAddressState(signerAddress)
+    setConnectedWalletAddressState(`Connected wallet: ${signerAddress}`)
     const contract = new ethers.Contract(process.env.NEXT_PUBLIC_GREETER_ADDRESS, Greeter.abi, signer)
     const transaction = await contract.setGreeting(newGreeting)
     await transaction.wait()
@@ -118,7 +128,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="h-4">
-                  { connectedWalletAddress && <p className="text-md">Connected wallet address: {connectedWalletAddress}</p> }
+                  { connectedWalletAddress && <p className="text-md">{connectedWalletAddress}</p> }
                 </div>
             </div>
           </>
