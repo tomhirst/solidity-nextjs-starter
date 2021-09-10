@@ -4,6 +4,8 @@
 
 This repo contains boilerplate code for interacting with a simple smart contract from the client-side using [Solidity](https://soliditylang.org/), [React](https://reactjs.org/) and [TailwindCSS](https://tailwindcss.com/).
 
+![Solidity + Next.js Starter](/public/screenshot.png)
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/)
