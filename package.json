@@ -1,30 +1,17 @@
 {
-  "name": "solidity-nextjs-starter",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "dotenv": "^10.0.0",
-    "ethers": "^5.4.3",
-    "next": "11.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.2",
-    "@nomiclabs/hardhat-waffle": "^2.0.1",
-    "autoprefixer": "^10.3.1",
-    "chai": "^4.3.4",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.0",
-    "ethereum-waffle": "^3.4.0",
-    "hardhat": "^2.5.0",
-    "postcss": "^8.3.6",
-    "tailwindcss": "^2.2.7"
-  }
+    "name": "solidity-nextjs-starter",
+    "version": "2.0.0",
+    "description": "A starter kit for building full stack Ethereum dApps with Solidity and Next.js",
+    "author": "Tom Hirst <hello@tomhirst.com>",
+    "license": "MIT",
+    "private": true,
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "start": "yarn workspace solidity-next-js-starter-contracts run start"
+    }
 }
