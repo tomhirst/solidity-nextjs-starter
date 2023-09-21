@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAccount, useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
 import abi from '../abi/Greeter.json';
 
-const useGreeting = ({ newGreeting }: { newGreeting?: string }) : {
+const useGreeting = ({ newGreeting, onSetGreetingSuccess }: { newGreeting?: string, onSetGreetingSuccess?: () => void }) : {
     address: `0x${string}` | undefined,
     greeting: string | null,
     getGreetingLoading: boolean,
@@ -40,6 +40,7 @@ const useGreeting = ({ newGreeting }: { newGreeting?: string }) : {
         chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID ?? '31337'),
         abi,
         functionName: 'getGreeting',
+        watch: true,
     }) as { data: string | null, isLoading: boolean, isError: boolean };
 
     const { config } = usePrepareContractWrite({
@@ -50,10 +51,15 @@ const useGreeting = ({ newGreeting }: { newGreeting?: string }) : {
         args: [newGreeting],
     });
 
-    const { data, write: setGreeting, isLoading: setGreetingLoading } = useContractWrite(config)
+    const { data, write: setGreeting, isLoading: setGreetingLoading, isError: setGreetingError } = useContractWrite(config)
 
-    const { isLoading: txLoading, isError: setGreetingError } = useWaitForTransaction({
+    const { isLoading: txLoading } = useWaitForTransaction({
         hash: data?.hash,
+        onSuccess: () => {
+            if(onSetGreetingSuccess){
+                onSetGreetingSuccess();
+            }
+        },
     });
 
     // Setting state in useEffect ensures that the state is only updated on the client side
@@ -61,10 +67,10 @@ const useGreeting = ({ newGreeting }: { newGreeting?: string }) : {
         setState({
             address,
             greeting,
-            getGreetingLoading: getGreetingLoading || txLoading,
+            getGreetingLoading,
             getGreetingError,
             setGreeting,
-            setGreetingLoading,
+            setGreetingLoading: setGreetingLoading || txLoading,
             setGreetingError,
         });
     }, [address, greeting, getGreetingLoading, getGreetingError, setGreeting, setGreetingLoading, setGreetingError, txLoading]);
