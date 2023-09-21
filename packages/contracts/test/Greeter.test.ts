@@ -13,12 +13,12 @@ describe("Greeter", function () {
 
   it("Should deploy with the right greeting", async function () {
     const { greeter } = await loadFixture(deploy);
-    expect(await greeter.greet()).to.equal("Hello world!");
+    expect(await greeter.getGreeting()).to.equal("Hello world!");
   });
 
   it("Should return the new greeting once it's changed", async function () {
     const { greeter } = await loadFixture(deploy);
     await greeter.setGreeting("Hey there!");
-    expect(await greeter.greet()).to.equal("Hey there!");
+    expect(await greeter.getGreeting()).to.equal("Hey there!");
   });
 });

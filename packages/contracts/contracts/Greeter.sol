@@ -30,7 +30,7 @@ contract Greeter {
      * @dev Returns the greeting string
      * @return The greeting string
      */
-    function greet() public view returns (string memory) {
+    function getGreeting() public view returns (string memory) {
         return greeting;
     }
 
