@@ -1,5 +1,5 @@
-import { Wrapper } from "./components/Wrapper"
-import { Greeting } from "./components/Greeting"
+import { Wrapper } from "./components/Wrapper";
+import { Greeting } from "./components/Greeting";
 
 const Home = () => {
   return (
@@ -8,7 +8,7 @@ const Home = () => {
         <Greeting />
       </Wrapper>
     </main>
-  )
-}
+  );
+};
 
 export default Home;

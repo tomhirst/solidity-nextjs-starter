@@ -9,32 +9,30 @@ import { publicProvider } from "wagmi/providers/public";
 
 const chain = process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? goerli : hardhat;
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [chain],
-    [
-        alchemyProvider({
-            apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY ?? '',
-        }),
-        publicProvider(),
-    ]
+  [chain],
+  [
+    alchemyProvider({
+      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY ?? "",
+    }),
+    publicProvider(),
+  ],
 );
 const { connectors } = getDefaultWallets({
-    appName: "Solidity Next.js Starter",
-    projectId: process.env.NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID ?? '',
-    chains,
+  appName: "Solidity Next.js Starter",
+  projectId: process.env.NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID ?? "",
+  chains,
 });
 const config = createConfig({
-    autoConnect: true,
-    connectors,
-    publicClient,
-    webSocketPublicClient,
+  autoConnect: true,
+  connectors,
+  publicClient,
+  webSocketPublicClient,
 });
 
-const Providers = ({children}: {children: ReactNode}) => (
-    <WagmiConfig config={config}>
-        <RainbowKitProvider chains={chains}>
-            {children}
-        </RainbowKitProvider>
-    </WagmiConfig>
-)
+const Providers = ({ children }: { children: ReactNode }) => (
+  <WagmiConfig config={config}>
+    <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
+  </WagmiConfig>
+);
 
-export { Providers }
+export { Providers };
