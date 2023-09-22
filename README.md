@@ -6,7 +6,7 @@ This code is for anyone looking to quickly bootstrap an EVM dApp using modern be
 
 If you want to learn how to interact with a simple smart contract from the client side, this repository is for you.
 
-![Solidity + Next.js Starter](/public/screenshot.png)
+![Solidity + Next.js Starter](./screenshot.png)
 
 - [Get started](#getting-started)
 - [Read changelog](./CHANGELOG.md)
