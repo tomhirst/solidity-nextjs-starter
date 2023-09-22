@@ -9,6 +9,7 @@
         "start": "hardhat node",
         "test": "hardhat test",
         "deploy": "hardhat run --network localhost scripts/deploy.ts",
+        "deploy:goerli": "hardhat run --network goerli scripts/deploy.ts",
         "format": "prettier --write \"./contracts/**/*.sol\" --plugin prettier-plugin-solidity && prettier --write \"./**/*.ts\""
     },
     "devDependencies": {
@@ -28,5 +29,7 @@
         "solidity-coverage": "^0.8.4",
         "typechain": "^8.3.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "dotenv": "^16.3.1"
+    }
 }

@@ -97,7 +97,7 @@ const Greeting = () => {
           )}
           {setGreetingError && (
             <p className="text-sm text-red-500 text-center">
-              There was an error setting your new greeting.
+              There was an error setting your new greeting
             </p>
           )}
         </div>
