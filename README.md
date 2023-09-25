@@ -177,18 +177,18 @@ This will let you point your front end at a publically viewable contract on a ne
 
 You can deploy the application to Vercel by clicking this button:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftomhirst%2Fsolidity-nextjs-starter)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftomhirst%2Fsolidity-nextjs-starter%2Ftree%2Fmain%2Fpackages%2Fapp)
 
 Be sure to deploy from the `packages/app` directory and set these environment variables:
 
 ```bash
 NEXT_PUBLIC_ALCHEMY_API_KEY=[your-api-key]
-NEXT_PUBLIC_CONTRACT_ADDRESS==[your-contract-address]
+NEXT_PUBLIC_CONTRACT_ADDRESS=[your-contract-address]
 NEXT_PUBLIC_CHAIN_ID=[your-chain-id]
 NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID=[your-project-id]
 ```
 
-Here's an app I deployed earlier: [Add later](https://vercel.com)
+Here's an app I deployed earlier: [https://solidity-nextjs-starter-app.vercel.app/](https://solidity-nextjs-starter-app.vercel.app/)
 
 ## Contributions
 

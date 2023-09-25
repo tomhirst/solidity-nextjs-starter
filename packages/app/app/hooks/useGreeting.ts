@@ -23,6 +23,7 @@ const useGreeting = ({
   getGreetingError: boolean;
   setGreeting: (() => void) | undefined;
   setGreetingLoading: boolean;
+  prepareSetGreetingError: boolean;
   setGreetingError: boolean;
 } => {
   // This pattern prevents Next.js server side hydration mismatch errors
@@ -33,6 +34,7 @@ const useGreeting = ({
     getGreetingError: boolean;
     setGreeting: (() => void) | undefined;
     setGreetingLoading: boolean;
+    prepareSetGreetingError: boolean;
     setGreetingError: boolean;
   }>({
     address: undefined,
@@ -41,6 +43,7 @@ const useGreeting = ({
     getGreetingError: false,
     setGreeting: undefined,
     setGreetingLoading: false,
+    prepareSetGreetingError: false,
     setGreetingError: false,
   });
 
@@ -59,7 +62,7 @@ const useGreeting = ({
     watch: true,
   }) as { data: string | null; isLoading: boolean; isError: boolean };
 
-  const { config } = usePrepareContractWrite({
+  const { config, isError: prepareSetGreetingError } = usePrepareContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
     chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID ?? "31337"),
     abi,
@@ -92,6 +95,7 @@ const useGreeting = ({
       getGreetingError,
       setGreeting,
       setGreetingLoading: setGreetingLoading || txLoading,
+      prepareSetGreetingError,
       setGreetingError,
     });
   }, [
@@ -101,6 +105,7 @@ const useGreeting = ({
     getGreetingError,
     setGreeting,
     setGreetingLoading,
+    prepareSetGreetingError,
     setGreetingError,
     txLoading,
   ]);

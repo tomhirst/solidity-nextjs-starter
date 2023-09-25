@@ -30,6 +30,7 @@ const Greeting = () => {
     getGreetingError,
     setGreeting,
     setGreetingLoading,
+    prepareSetGreetingError,
     setGreetingError,
   } = useGreeting({ newGreeting, onSetGreetingSuccess });
 
@@ -76,7 +77,12 @@ const Greeting = () => {
           <button
             className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 px-8 rounded-md"
             onClick={setGreeting}
-            disabled={!address || !newGreeting || setGreetingLoading}
+            disabled={
+              !address ||
+              !newGreeting ||
+              setGreetingLoading ||
+              prepareSetGreetingError
+            }
           >
             {!setGreetingLoading
               ? `Set your new greeting on the blockchain`
@@ -98,6 +104,11 @@ const Greeting = () => {
           {setGreetingError && (
             <p className="text-sm text-red-500 text-center">
               There was an error setting your new greeting
+            </p>
+          )}
+          {newGreeting && prepareSetGreetingError && (
+            <p className="text-sm text-red-500 text-center">
+              Sorry, only the contract owner can set a greeting
             </p>
           )}
         </div>
