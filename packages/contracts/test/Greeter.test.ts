@@ -16,6 +16,14 @@ describe("Greeter", function () {
     expect(await greeter.getGreeting()).to.equal("Hello world!");
   });
 
+  it("Should not let a non-owner set a new greeting", async function () {
+    const { greeter } = await loadFixture(deploy);
+    const signer = await ethers.provider.getSigner(1);
+    await expect(
+      greeter.connect(signer).setGreeting("Hey there!"),
+    ).to.be.revertedWith("Ownable: caller is not the owner");
+  });
+
   it("Should return the new greeting once it's changed", async function () {
     const { greeter } = await loadFixture(deploy);
     await greeter.setGreeting("Hey there!");

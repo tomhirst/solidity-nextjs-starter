@@ -2,14 +2,15 @@
 pragma solidity ^0.8.9;
 
 // @dev Remove the console import if you don't want to use it
-import "hardhat/console.sol";
+// import "hardhat/console.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title Greeter
  * @author @tom_hirst
  * @notice Simple contract to demonstrate basic Solidity features
  */
-contract Greeter {
+contract Greeter is Ownable {
     /**
      * @dev Stores a greeting string
      */
@@ -21,7 +22,7 @@ contract Greeter {
      */
     constructor(string memory _greeting) {
         // @dev Remove the console log if you don't want to use it
-        console.log("Deploying a Greeter with greeting:", _greeting);
+        // console.log("Deploying a Greeter with greeting:", _greeting);
 
         greeting = _greeting;
     }
@@ -36,11 +37,12 @@ contract Greeter {
 
     /**
      * @dev Sets the greeting string
+     * @notice Only the owner can call this function
      * @param _greeting The greeting string to store
      */
-    function setGreeting(string memory _greeting) public {
+    function setGreeting(string memory _greeting) public onlyOwner {
         // @dev Remove the console log if you don't want to use it
-        console.log("Changing greeting from '%s' to '%s'", greeting, _greeting);
+        // console.log("Changing greeting from '%s' to '%s'", greeting, _greeting);
 
         greeting = _greeting;
     }
