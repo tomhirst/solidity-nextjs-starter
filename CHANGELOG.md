@@ -2,7 +2,7 @@
 
 A list of versions and notable changes for `solidity-nextjs-starter`.
 
-## [2.0.0] - Major update - 2023-09-22
+## [2.0.0] - Major update - 2023-09-25
 
 ### Added
 
