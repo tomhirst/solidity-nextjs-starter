@@ -69,7 +69,7 @@ How to get running on your local machine:
 
 ### Initial Setup
 
-Use `git clone git clone https://github.com/tomhirst/solidity-nextjs-starter.git` to clone this repository to your local machine.
+Use `git clone https://github.com/tomhirst/solidity-nextjs-starter.git` to clone this repository to your local machine.
 
 Enter the repository folder with `cd solidity-nextjs-starter`, then install all dependencies using `yarn`.
 
