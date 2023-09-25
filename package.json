@@ -14,5 +14,17 @@
     "scripts": {
         "start:contracts": "yarn workspace solidity-next-js-starter-contracts run start",
         "start:app": "yarn workspace solidity-next-js-starter-app run dev"
+    },
+    "devDependencies": {
+        "@typechain/ethers-v6": "^0.4.3",
+        "@typechain/hardhat": "^8.0.0",
+        "@types/chai": "^4.2.0",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^20.6.5",
+        "ethers": "^6.7.1",
+        "hardhat": "^2.17.3",
+        "ts-node": "^10.9.1",
+        "typechain": "^8.3.1",
+        "typescript": "^5.2.2"
     }
 }
