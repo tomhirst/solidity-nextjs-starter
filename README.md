@@ -1,156 +1,199 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftomhirst%2Fsolidity-nextjs-starter)
+# Solidity Next.js Starter
 
-# A full stack dApp starter built on Ethereum (Solidity) with Next.js (React)
+A starter repository for building full stack Ethereum dApps with [Solidity](https://soliditylang.org/) and [Next.js](https://nextjs.org/).
 
-This repo contains boilerplate code for interacting with a simple smart contract from the client-side using [Solidity](https://soliditylang.org/), [React](https://reactjs.org/) and [TailwindCSS](https://tailwindcss.com/).
+This code is for anyone looking to quickly bootstrap an EVM dApp using modern best practices. In particular, developers with existing JavaScript/TypeScript experience who're newer to Solidity.
 
-![Solidity + Next.js Starter](/public/screenshot.png)
+If you want to learn how to interact with a simple smart contract from the client side, this repository is for you.
+
+![Solidity + Next.js Starter](./screenshot.png)
+
+- [Get started](#getting-started)
+- [Read changelog](./CHANGELOG.md)
+
+## Packages
+
+### Contracts
+
+`packages/contracts` - All smart contract files.
+
+#### Contracts Stack
+
+- [Alchemy](https://www.alchemy.com/)
+- [Hardhat](https://hardhat.org/)
+- [Mocha](https://mochajs.org/)
+- [Chai](https://www.chaijs.com/)
+- [Solidity](https://soliditylang.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prettier](https://prettier.io/)
+
+#### Contracts Scripts
+
+- `yarn start` - Starts your local Hardhat network
+- `yarn test` - Tests `Greeter.sol`'s functionality
+- `yarn deploy` - Deploys `Greeter.sol` to your local Hardhat network
+- `yarn deploy:goerli` - Deploys `Greeter.sol` to the Goerli test network
+- `yarn format` - Formats all code using Prettier
+
+### App
+
+`packages/app` - All client application files.
+
+#### App Stack
+
+- [Alchemy](https://www.alchemy.com/)
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [viem](https://viem.sh/)
+- [wagmi](https://wagmi.sh/)
+- [RainbowKit](https://www.rainbowkit.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prettier](https://prettier.io/)
+
+#### App Scripts
+
+- `yarn dev` - Starts the Next.js local development environment
+- `yarn build` - Creates an optimised production build of your app
+- `yarn start` - Starts the Next.js application in production mode
+- `yarn lint` - Checks for problems in your code using ESLint
+- `yarn format` - Formats all code using Prettier
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/)
-- [MetaMask wallet browser extension](https://metamask.io/download.html).
+- [Node](https://nodejs.org/en/download/)
+- [MetaMask](https://metamask.io/download.html)
 
 ## Getting Started
 
-### Clone This Repo
+How to get running on your local machine:
 
-Use `git clone https://github.com/tomhirst/solidity-nextjs-starter.git` to get the files within this repository onto your local machine.
+### Initial Setup
 
-### Environment Setup
+Use `git clone git clone https://github.com/tomhirst/solidity-nextjs-starter.git` to clone this repository to your local machine.
 
-Duplicate `.env.example` to `.env` and fill out the `HARDHAT_CHAIN_ID` environment variable. The port from the example file, if it's free, will be fine in most cases.
+Enter the repository folder with `cd solidity-nextjs-starter`, then install all dependencies using `yarn`.
 
-Run `npm install`.
+Solidity Next.js Starter uses Yarn workspaces, so this will install the relevant dependencies for each packages in one command.
 
-### Running The Smart Contract Locally
+### Contracts Setup
 
-Compile the ABI for the smart contract using `npx hardhat compile`.
+Enter the `contracts` folder with `cd packages/contracts` and start your local hardhat node with `yarn start`. If you're successful, you'll be presented with a number of accounts (one of which you'll need later). Here's an example:
 
-If you're successful, you'll recieve a confirmation message of:
-
-```
-Compilation finished successfully
-```
-
-And, a `src/artifacts` folder will be created in your project.
-
-Deploy the smart contract to the local blockchain for testing with `npx hardhat node`.
-
-If you're successful, you'll be presented with a number of account details in the CLI. Here's an example:
-
-```
-Account #0: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 (10000 ETH)
+```bash
+Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
 Private Key: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 ```
 
-Then in a new terminal window, `npx hardhat run scripts/deploy.js --network localhost`.
+In a new terminal window, deploy the `Greeter` contract using `yarn deploy`. If you're successful, you'll get a contract address (that you'll also need later) like this:
 
-If you're successful, you'll get something like the following CLI output:
-
-```
-Greeter deployed to: 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+```bash
+Greeter with greeting "Hello, world!" deployed to 0x5FbDB2315678afecb367f032d93F642f64180aa3
 ```
 
-### Adding A Local Account To MetaMask
+### App Setup
 
-Open your MetaMask browser extension and change the network to `Localhost 8545`.
+Enter the `app` folder with `cd packages/app` from the root directory.
 
-Next, import one of the accounts by adding its Private Key (for example, `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80` to MetaMask.
+You'll need a RainbowKit project ID. You can get one from [WalletConnect Cloud](https://cloud.walletconnect.com/) and it will look something like this: `206a512b7abd9c469123b45fb272b68e` (not a real key).
 
-If you're successful, you should see the a balance resembling something like `10000 ETH` in the wallet.
+Afterwards, duplicate `.env.example` and rename the file `.env`. Then add your RainbowKit project ID like this: `NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID=[your-project-id]`.
 
-### Connecting The Front-End
+`NEXT_PUBLIC_CHAIN_ID` should already be set to the Hardhat local network ID of `31337` (change this when you want your app to run on other chains).
 
-In `.env` set the `NEXT_PUBLIC_GREETER_ADDRESS` environment variable to the address your smart contract was deployed to. For example, `0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0`.
+Finally, set `NEXT_PUBLIC_CONTRACT_ADDRESS` using the contract address you recieved when you deployed. For example: `NEXT_PUBLIC_CONTRACT_ADDRESS=0x5FbDB2315678afecb367f032d93F642f64180aa3`
 
-In a new terminal window, load the front-end with `npm run dev`. If you want to use an alternate port from `3000`, use `npm run dev -- --port=1234`, or whatever port number you prefer.
+Once your environment variables are set, run the application using `yarn dev`. To view, open up `localhost:3000` (or whatever port Next.js has assigned) in your browser.
 
-## Demo'ing The Functionality
+### MetaMask Setup
 
-Once set up, go to `localhost:3000` (or whatever post number you used), to view your dApp in the browser.
+To fully demo the apps' features, you'll need a web3 wallet extension. If you don't have MetaMask installed already, you can get it [here](https://metamask.io/download.html).
 
-Clicking `Fetch greeting from the blockchain` should bring back a value of `Hello world!` in the input above. This is the default string passed to the smart contract on first deloy.
+If you haven't used Hardhat before, you'll need to add a test account to write to the smart contract that you deployed. Do this by importing one of the accounts you noted down earlier to MetaMask using the accounts' private key (for example, `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`).
 
-To update the greeting value, type something in the input with placeholder `Write a new greeting`, then click `Set new greeting on the blockchain`. If you're successful, a MetaMask window will open in your browser. From here you can connect the local account you added earlier and sign the transaction.
+Once connected to the app with the test account, you can set a new greeting on the blockchain by using the form on page. You'll get a confirmation message if you're successful.
 
-Click `Fetch greeting from the blockchain` again to see the changes you've made.
+## Advanced
 
-## Editing The Front-End
+Instructions for deploying the smart contract and application to publically viewable environments:
 
-To modify the front page of your application, edit `pages/index.js`.
+### Advanced Contracts
 
-All [TailwindCSS classes](https://tailwindcss.com/docs) are available to you.
+Up to now, your smart contract has been running locally. The next step is to deploy it to a live test network. We'll use [Goerli](https://goerli.net/) for this.
 
-To lint your front-end code, use `npm run lint`.
+#### Deploying to Goerli Testnet
 
-## Testing
+First you need some Goerli test ETH. You can get some from a [Goerli Faucet](https://goerlifaucet.com/).
 
-To test your smart contracts, run `npx hardhat test`.
+In the `packages/contracts` directory, duplicate `.env.example` to `.env`. You'll need an [Alchemy API key](https://docs.alchemy.com/docs/alchemy-quickstart-guide#1key-create-an-alchemy-key) and the private key of the wallet you'd like to deploy your Goerli contract from. I recommend using a burner account that doesn't hold any valuable assets on other chains.
 
-A sample test can be found in `test/sample-test.js`.
+Set the environment variables like so:
 
-## Deploying To The Ropsten Test Network
-
-*This is a more advanced step after running the smart contract locally.*
-
-Up to now, the smart contract has been running on a local blockchain. The next step, is to test how it works on a live test network. We'll do this by deploying to Ropsten.
-
-### MetaMask
-
-First, switch your MetaMask network from `Localhost 8545` to `Ropsten Test Network`.
-
-Then, view the account details of your test account. Click `Export Private Key`. After entering your password, you'll be given a private key. Copy and paste your private key (example, `df57089aefbcaf7ba0bc227dafbffa9fc08a93fdc65e1e42214a14efcf23656e`) as the value of `ROPSTEN_PRIVATE_KEY` in `.env`.
-
-**Important:** Never expose the private key of an account with real assets inside. Always add private keys as environment variables. Never commit private keys to code.
-
-### Infura
-
-[Infura](https://infura.io/) is a service that allows developers to connect to Ethereum infrastructure through their API. In this boilerplate, we'll be using Infura to deploy our smart contract to the Ropsten test network.
-
-Sign up for an account if you don't have one already, then [create a new Ethereum project](https://infura.io/dashboard/ethereum/). Name your project, then select `Ropsten` from the endpoints drop down. Save changes.
-
-Copy and paste the URL starting with `https` and set it as the `ROPSTEN_URL` value in your `.env` file.
-
-### Obtaining Test ETH
-
-You'll need some test ETH in your wallet for use on Ropsten. Head over to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/), paste in your wallet account address (for example, `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`) and press `Send me test Ether`.
-
-In a few minutes, you should see your balance update in MetaMask. This is your test ETH.
-
-### Deploying Your Smart Contract To Ropsten
-
-In your terminal enter, `npx hardhat run scripts/deploy.js --network ropsten`.
-
-If you're successful, you'll get a confirmation message as follows:
-
-```
-Greeter deployed to: 0x9045cEc7161f380C224ae95c15EbE96659A53c46
+```bash
+ALCHEMY_API_KEY=[your-api-key]
+GOERLI_PRIVATE_KEY=[your-private-key]
 ```
 
-This address is where your smart contract is deployed on the Ropsten Test Network.
+Finally, run `yarn deploy:goerli`. If you're successful, you'll get a message ike this in your terminal window:
 
-Post deployment, you should also see your ETH decrease a little in MetaMask from the gas transaction fee.
+```bash
+Greeter with greeting "Hello, world!" deployed to 0x2D3Dff7366c8FA680801E563E008C8303B36FBC6
+```
 
-### Etherscan
+Here's a version of the contract I deployed earlier: [0x2D3Dff7366c8FA680801E563E008C8303B36FBC6](https://goerli.etherscan.io/address/0x2D3Dff7366c8FA680801E563E008C8303B36FBC6)
 
-Because your smart contract is now deployed to a live test network, you'll be able to view it's details on [Etherscan](https://ropsten.etherscan.io/). Go to [Ropsten Etherscan](https://ropsten.etherscan.io/) and copy and paste the address you were given in the previous step (for example, `0x9045cEc7161f380C224ae95c15EbE96659A53c46`) into the explorer.
+#### Verifying Your Contract on Goerli
 
-You'll be able to see all historical transactions and events here.
+Let's verify your newly deployed contract with Etherscan. First, get an Etherscan API key [here](https://docs.etherscan.io/getting-started/viewing-api-usage-statistics). Then add it to your `.env` file:
 
-### Testing The Functionality
+```bash
+ETHERSCAN_API_KEY=[your-api-key]
+```
 
-Change the `NEXT_PUBLIC_GREETER_ADDRESS` variable in `.env` to be the smart contract address on the Ropsten Test Network (for example, `0x9045cEc7161f380C224ae95c15EbE96659A53c46`).
+Run `yarn verify:goerli [your-contract-address] 'Hello, world!'` to verify your contract. Be sure to pass the address of the contract you just deployed and the constructor parameter, which in this case is the default greeting.
 
-Start (or restart) the front-end using `npm run dev`.
+If you're successful, you'll get a message like this:
 
-Fetching the greeting from the blockchain will return `Hello world!` on first run.
+```bash
+Successfully verified contract Greeter on the block explorer.
+```
 
-Setting a new greeting may take a little longer than it did locally as we're using a real test network.
+### Advanced App
 
-All instance of setting a new greeting will now create a transaction attached to the smart contract that you can view on [Ropsten Etherscan](https://ropsten.etherscan.io/)
+Let's look at deploying your application.
 
-## Roadmap
+#### Adding an Alchemy API Key
 
-- Add a [smart contract for minting NFTs](https://docs.openzeppelin.com/contracts/3.x/erc721)
-- Create a TypeScript fork
+To interact with smart contracts on a testnet or mainnet from your app, you'll need an Alchemy API key. You can get one [here](https://docs.alchemy.com/docs/alchemy-quickstart-guide#1key-create-an-alchemy-key) if you didn't get one earlier.
+
+Add this to `.env` in `packages/app` like so:
+
+```bash
+ALCHEMY_API_KEY=[your-api-key]
+```
+
+This will let you point your front end at a publically viewable contract on a network like Goerli or mainnet.
+
+#### Deploying to Vercel
+
+You can deploy the application to Vercel by clicking this button:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftomhirst%2Fsolidity-nextjs-starter)
+
+Be sure to deploy from the `packages/app` directory and set these environment variables:
+
+```bash
+NEXT_PUBLIC_ALCHEMY_API_KEY=[your-api-key]
+NEXT_PUBLIC_CONTRACT_ADDRESS==[your-contract-address]
+NEXT_PUBLIC_CHAIN_ID=[your-chain-id]
+NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID=[your-project-id]
+```
+
+Here's an app I deployed earlier: [Add later](https://vercel.com)
+
+## Contributions
+
+All suggestions for improvement are welcome. Please submit a [pull request](https://github.com/tomhirst/solidity-nextjs-starter/pulls) to contribute.
+
+## Disclaimer
+
+All code in this repository is unaudited. Use at your own risk.
