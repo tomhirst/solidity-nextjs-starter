@@ -190,6 +190,12 @@ NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID=[your-project-id]
 
 Here's an app I deployed earlier: [https://solidity-nextjs-starter-app.vercel.app/](https://solidity-nextjs-starter-app.vercel.app/)
 
+## Why I Built This
+
+I built this to onboard myself to web3. Since 2021, Solidity Next.js Starter has amassed 100s of GitHub stars and helped devs land dream gigs in the space.
+
+![A tweet exchange](./why-i-built-this.png)
+
 ## Contributions
 
 All suggestions for improvement are welcome. Please submit a [pull request](https://github.com/tomhirst/solidity-nextjs-starter/pulls) to contribute.
