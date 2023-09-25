@@ -12,6 +12,7 @@
         "packages/*"
     ],
     "scripts": {
-        "start": "yarn workspace solidity-next-js-starter-contracts run start"
+        "start:contracts": "yarn workspace solidity-next-js-starter-contracts run start",
+        "start:app": "yarn workspace solidity-next-js-starter-app run dev"
     }
 }

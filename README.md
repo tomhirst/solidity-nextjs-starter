@@ -29,7 +29,11 @@ If you want to learn how to interact with a simple smart contract from the clien
 
 #### Contracts Scripts
 
-- `yarn start`
+- `yarn start` - Starts your local Hardhat network
+- `yarn test` - Tests `Greeter.sol`'s functionality
+- `yarn deploy` - Deploys `Greeter.sol` to your local Hardhat network
+- `yarn deploy:goerli` - Deploys `Greeter.sol` to the Goerli test network
+- `yarn format` - Formats all code using Prettier
 
 ### App
 
@@ -46,6 +50,14 @@ If you want to learn how to interact with a simple smart contract from the clien
 - [TypeScript](https://www.typescriptlang.org/)
 - [Prettier](https://prettier.io/)
 
+#### App Scripts
+
+- `yarn dev` - Starts the Next.js local development environment
+- `yarn build` - Creates an optimised production build of your app
+- `yarn start` - Starts the Next.js application in production mode
+- `yarn lint` - Checks for problems in your code using ESLint
+- `yarn format` - Formats all code using Prettier
+
 ## Prerequisites
 
 - [Node](https://nodejs.org/en/download/)
@@ -60,6 +72,8 @@ How to get running on your local machine:
 Use `git clone git clone https://github.com/tomhirst/solidity-nextjs-starter.git` to clone this repository to your local machine.
 
 Enter the repository folder with `cd solidity-nextjs-starter`, then install all dependencies using `yarn`.
+
+Solidity Next.js Starter uses Yarn workspaces, so this will install the relevant dependencies for each packages in one command.
 
 ### Contracts Setup
 
@@ -88,29 +102,42 @@ Afterwards, duplicate `.env.example` and rename the file `.env`. Then add your R
 
 Finally, set `NEXT_PUBLIC_CONTRACT_ADDRESS` using the contract address you recieved when you deployed. For example: `NEXT_PUBLIC_CONTRACT_ADDRESS=0x5FbDB2315678afecb367f032d93F642f64180aa3`
 
-Once your environment variables are set, run the application using `yarn dev`. To view, open up `localhost:3000` (or whatever port Next.js assigned) in your browser.
+Once your environment variables are set, run the application using `yarn dev`. To view, open up `localhost:3000` (or whatever port Next.js has assigned) in your browser.
 
 ### MetaMask Setup
 
-To fully demo the apps' features, you'll need a web3 wallet extension. If you don't have MetaMask installed already, you can get it here.
+To fully demo the apps' features, you'll need a web3 wallet extension. If you don't have MetaMask installed already, you can get it [here](https://metamask.io/download.html).
 
-If you haven't used Hardhat before, you'll need to add a test account to write to the smart contract you deployed. Do this by importing one of the accounts you noted down earlier to MetaMask using the accounts' private key (for example, `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`).
+If you haven't used Hardhat before, you'll need to add a test account to write to the smart contract that you deployed. Do this by importing one of the accounts you noted down earlier to MetaMask using the accounts' private key (for example, `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`).
 
 Once connected to the app with the test account, you can set a new greeting on the blockchain by using the form on page. You'll get a confirmation message if you're successful.
 
 ## Advanced
 
-Instructions for deploying the smart contract and application to publically viewable environments.
+Instructions for deploying the smart contract and application to publically viewable environments:
 
 ### Advanced Contracts
 
-Up to now, your smart contract has been running on a locally. The next step is to deploy it to a live test network.
+Up to now, your smart contract has been running locally. The next step is to deploy it to a live test network. We'll use [Goerli](https://goerli.net/) for this.
 
 #### Deploying to Goerli Testnet
 
-First you need some Goerli Test ETH.
+First you need some Goerli test ETH. You can get some from a [Goerli Faucet](https://goerlifaucet.com/).
 
-In the `packages/contracts` directory, duplicate `.env.example` to `.env`. You'll need an Alchemy API key and the private key of the wallet you'd like to deploy your Goerli contract from.
+In the `packages/contracts` directory, duplicate `.env.example` to `.env`. You'll need an [Alchemy API key](https://docs.alchemy.com/docs/alchemy-quickstart-guide#1key-create-an-alchemy-key) and the private key of the wallet you'd like to deploy your Goerli contract from. I recommend using a burner account that doesn't hold any valuable assets on other chains.
+
+Set the environment variables like so:
+
+```bash
+ALCHEMY_API_KEY=[your-api-key]
+GOERLI_PRIVATE_KEY=[your-private-key]
+```
+
+Finally, run `yarn deploy:goerli`. If you're successful, you'll get a message ike this in your terminal window:
+
+```bash
+
+```
 
 Here's a version of the contract I deployed earlier: []()
 
@@ -124,7 +151,7 @@ How to deploy your smart contract to Goerli testnet and application to Vercel:
 
 #### Adding an Alchemy API Key
 
-To read smart contracts on a testnet or mainnet, you'll need an Alchemy API key. You can get one here:
+To read smart contracts on a testnet or mainnet, you'll need an Alchemy API key. You can get one [here](https://docs.alchemy.com/docs/alchemy-quickstart-guide#1key-create-an-alchemy-key):
 
 #### Deploying to Vercel
 
