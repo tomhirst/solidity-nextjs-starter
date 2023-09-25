@@ -96,7 +96,7 @@ Enter the `app` folder with `cd packages/app` from the root directory.
 
 You'll need a RainbowKit project ID. You can get one from [WalletConnect Cloud](https://cloud.walletconnect.com/) and it will look something like this: `206a512b7abd9c469123b45fb272b68e` (not a real key).
 
-Afterwards, duplicate `.env.example` and rename the file `.env`. Then add your RainbowKit project ID like this: `NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID=[your key]`.
+Afterwards, duplicate `.env.example` and rename the file `.env`. Then add your RainbowKit project ID like this: `NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID=[your-project-id]`.
 
 `NEXT_PUBLIC_CHAIN_ID` should already be set to the Hardhat local network ID of `31337` (change this when you want your app to run on other chains).
 
@@ -136,26 +136,59 @@ GOERLI_PRIVATE_KEY=[your-private-key]
 Finally, run `yarn deploy:goerli`. If you're successful, you'll get a message ike this in your terminal window:
 
 ```bash
-
+Greeter with greeting "Hello, world!" deployed to 0x2D3Dff7366c8FA680801E563E008C8303B36FBC6
 ```
 
-Here's a version of the contract I deployed earlier: []()
+Here's a version of the contract I deployed earlier: [0x2D3Dff7366c8FA680801E563E008C8303B36FBC6](https://goerli.etherscan.io/address/0x2D3Dff7366c8FA680801E563E008C8303B36FBC6)
 
 #### Verifying Your Contract on Goerli
 
-Let's verify your newly deployed contract with Etherscan. Get an Etherscan API here. Add it to the env. Run script.
+Let's verify your newly deployed contract with Etherscan. First, get an Etherscan API key [here](https://docs.etherscan.io/getting-started/viewing-api-usage-statistics). Then add it to your `.env` file:
 
-How to deploy your smart contract to Goerli testnet and application to Vercel:
+```bash
+ETHERSCAN_API_KEY=[your-api-key]
+```
 
-### App
+Run `yarn verify:goerli [your-contract-address] 'Hello, world!'` to verify your contract. Be sure to pass the address of the contract you just deployed and the constructor parameter, which in this case is the default greeting.
+
+If you're successful, you'll get a message like this:
+
+```bash
+Successfully verified contract Greeter on the block explorer.
+```
+
+### Advanced App
+
+Let's look at deploying your application.
 
 #### Adding an Alchemy API Key
 
-To read smart contracts on a testnet or mainnet, you'll need an Alchemy API key. You can get one [here](https://docs.alchemy.com/docs/alchemy-quickstart-guide#1key-create-an-alchemy-key):
+To interact with smart contracts on a testnet or mainnet from your app, you'll need an Alchemy API key. You can get one [here](https://docs.alchemy.com/docs/alchemy-quickstart-guide#1key-create-an-alchemy-key) if you didn't get one earlier.
+
+Add this to `.env` in `packages/app` like so:
+
+```bash
+ALCHEMY_API_KEY=[your-api-key]
+```
+
+This will let you point your front end at a publically viewable contract on a network like Goerli or mainnet.
 
 #### Deploying to Vercel
 
-Here's an app I deployed earlier.
+You can deploy the application to Vercel by clicking this button:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftomhirst%2Fsolidity-nextjs-starter)
+
+Be sure to deploy from the `packages/app` directory and set these environment variables:
+
+```bash
+NEXT_PUBLIC_ALCHEMY_API_KEY=[your-api-key]
+NEXT_PUBLIC_CONTRACT_ADDRESS==[your-contract-address]
+NEXT_PUBLIC_CHAIN_ID=[your-chain-id]
+NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID=[your-project-id]
+```
+
+Here's an app I deployed earlier: [Add later](https://vercel.com)
 
 ## Contributions
 
