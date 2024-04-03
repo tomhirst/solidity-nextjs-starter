@@ -1,6 +1,6 @@
 {
     "name": "solidity-nextjs-starter",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "A starter kit for building full stack Ethereum dApps with Solidity and Next.js",
     "author": "Tom Hirst <hello@tomhirst.com>",
     "license": "MIT",

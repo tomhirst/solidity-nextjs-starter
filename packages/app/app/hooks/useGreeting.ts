@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   useAccount,
-  useContractRead,
-  usePrepareContractWrite,
-  useContractWrite,
-  useWaitForTransaction,
+  useReadContract,
+  useWriteContract,
+  useWaitForTransactionReceipt,
 } from "wagmi";
 import abi from "../abi/greeter.json";
 
@@ -26,91 +24,48 @@ const useGreeting = ({
   prepareSetGreetingError: boolean;
   setGreetingError: boolean;
 } => {
-  // This pattern prevents Next.js server side hydration mismatch errors
-  const [state, setState] = useState<{
-    address: `0x${string}` | undefined;
-    greeting: string | null;
-    getGreetingLoading: boolean;
-    getGreetingError: boolean;
-    setGreeting: (() => void) | undefined;
-    setGreetingLoading: boolean;
-    prepareSetGreetingError: boolean;
-    setGreetingError: boolean;
-  }>({
-    address: undefined,
-    greeting: ``,
-    getGreetingLoading: true,
-    getGreetingError: false,
-    setGreeting: undefined,
-    setGreetingLoading: false,
-    prepareSetGreetingError: false,
-    setGreetingError: false,
-  });
-
   const { address } = useAccount();
 
-  // Otherwise we'd just return these values directly
   const {
     data: greeting,
     isLoading: getGreetingLoading,
     isError: getGreetingError,
-  } = useContractRead({
+  } = useReadContract({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
-    chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID ?? "31337"),
     abi,
     functionName: "getGreeting",
     watch: true,
-  }) as { data: string | null; isLoading: boolean; isError: boolean };
-
-  const { config, isError: prepareSetGreetingError } = usePrepareContractWrite({
-    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
-    chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID ?? "31337"),
-    abi,
-    functionName: "setGreeting",
-    args: [newGreeting],
   });
 
   const {
-    data,
-    write: setGreeting,
-    isLoading: setGreetingLoading,
+    data: setGreetingHash,
+    writeContract: setGreeting,
+    isPending: setGreetingLoading,
     isError: setGreetingError,
-  } = useContractWrite(config);
+  } = useWriteContract();
 
-  const { isLoading: txLoading } = useWaitForTransaction({
-    hash: data?.hash,
-    onSuccess: () => {
-      if (onSetGreetingSuccess) {
-        onSetGreetingSuccess();
-      }
-    },
+  const { 
+    isLoading: txLoading,
+  } = useWaitForTransactionReceipt({
+    hash: setGreetingHash,
   });
 
-  // Setting state in useEffect ensures that the state is only updated on the client side
-  useEffect(() => {
-    setState({
-      address,
-      greeting,
-      getGreetingLoading,
-      getGreetingError,
-      setGreeting,
-      setGreetingLoading: setGreetingLoading || txLoading,
-      prepareSetGreetingError,
-      setGreetingError,
-    });
-  }, [
+  return {
     address,
     greeting,
     getGreetingLoading,
     getGreetingError,
-    setGreeting,
-    setGreetingLoading,
-    prepareSetGreetingError,
+    setGreeting: () => setGreeting?.({
+      address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
+      abi,
+      functionName: "setGreeting",
+      args: [newGreeting],
+      onSuccess: () => onSetGreetingSuccess,
+    }),
+    setGreetingLoading: setGreetingLoading || txLoading,
+    prepareSetGreetingError: newGreeting === undefined,
     setGreetingError,
-    txLoading,
-  ]);
-
-  return state;
+  };
 };
 
 export { useGreeting };

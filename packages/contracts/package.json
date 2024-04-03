@@ -1,6 +1,6 @@
 {
     "name": "solidity-next-js-starter-contracts",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "A basic contract for starting to build full stack Ethereum dApps",
     "main": "index.js",
     "author": "Tom Hirst <hello@tomhirst.com>",
