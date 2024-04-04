@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import {
   useAccount,
   useReadContract,
@@ -30,11 +31,11 @@ const useGreeting = ({
     data: greeting,
     isLoading: getGreetingLoading,
     isError: getGreetingError,
+    refetch: refetchGreeting,
   } = useReadContract({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
     abi,
     functionName: "getGreeting",
-    watch: true,
   });
 
   const {
@@ -44,11 +45,22 @@ const useGreeting = ({
     isError: setGreetingError,
   } = useWriteContract();
 
-  const { 
+  const {
+    isSuccess: txSuccess,
     isLoading: txLoading,
   } = useWaitForTransactionReceipt({
     hash: setGreetingHash,
+    query: {
+      enabled: Boolean(setGreetingHash),
+    }
   });
+
+  useEffect(() => {
+    if (txSuccess) {
+      onSetGreetingSuccess?.();
+      refetchGreeting();
+    }
+  }, [txSuccess]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     address,
@@ -60,7 +72,6 @@ const useGreeting = ({
       abi,
       functionName: "setGreeting",
       args: [newGreeting],
-      onSuccess: () => onSetGreetingSuccess,
     }),
     setGreetingLoading: setGreetingLoading || txLoading,
     prepareSetGreetingError: newGreeting === undefined,
