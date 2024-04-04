@@ -136,10 +136,10 @@ SEPOLIA_PRIVATE_KEY=[your-private-key]
 Finally, run `yarn deploy:sepolia`. If you're successful, you'll get a message ike this in your terminal window:
 
 ```bash
-Greeter with greeting "Hello, world!" deployed to 0x2D3Dff7366c8FA680801E563E008C8303B36FBC6
+Greeter with greeting "Hello, world!" deployed to 0xE47c47B1db8823BA54aae021cfce03b2d37B52a8
 ```
 
-Here's a version of the contract I deployed earlier: [0xf6B4136B12a20E77Cd55D84479f6E7C6bC7D741e](https://sepolia.etherscan.io/address/0xf6B4136B12a20E77Cd55D84479f6E7C6bC7D741e)
+Here's a version of the contract I deployed earlier: [0xE47c47B1db8823BA54aae021cfce03b2d37B52a8](https://sepolia.etherscan.io/address/0xE47c47B1db8823BA54aae021cfce03b2d37B52a8)
 
 #### Verifying Your Contract on Sepolia
 
