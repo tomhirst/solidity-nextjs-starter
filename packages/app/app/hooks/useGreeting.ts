@@ -64,7 +64,7 @@ const useGreeting = ({
 
   return {
     address,
-    greeting,
+    greeting: greeting as string,
     getGreetingLoading,
     getGreetingError,
     setGreeting: () => setGreeting?.({

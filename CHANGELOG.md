@@ -10,6 +10,7 @@ A list of versions and notable changes for `solidity-nextjs-starter`.
 
 ### [2.1.0] - Changed
 
+- Upgraded `next` to v14
 - Upgraded `viem`, `wagmi` and `@rainbow-me/rainbowkit`
 - Reworked `Providers.tsx` and `useGreeting.ts` to support upgrade
 
