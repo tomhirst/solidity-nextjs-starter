@@ -11,6 +11,7 @@ A list of versions and notable changes for `solidity-nextjs-starter`.
 ### [2.1.0] - Changed
 
 - Upgraded `next` to v14
+- Upgraded `tailwindcss`
 - Upgraded `viem`, `wagmi` and `@rainbow-me/rainbowkit`
 - Reworked `Providers.tsx` and `useGreeting.ts` to support upgrade
 - Rework `app` and `contracts` packages to switch from Goerli ([RIP](https://www.alchemy.com/blog/ethereum-goerli-testnet-deprecation)) to Sepolia testnet
