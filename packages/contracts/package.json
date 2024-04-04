@@ -9,8 +9,8 @@
         "start": "hardhat node",
         "test": "hardhat test",
         "deploy": "hardhat run --network localhost scripts/deploy.ts",
-        "deploy:goerli": "hardhat run --network goerli scripts/deploy.ts",
-        "verify:goerli": "hardhat verify --network goerli",
+        "deploy:sepolia": "hardhat run --network sepolia scripts/deploy.ts",
+        "verify:sepolia": "hardhat verify --network sepolia",
         "format": "prettier --write \"./contracts/**/*.sol\" --plugin prettier-plugin-solidity && prettier --write \"./**/*.ts\""
     },
     "devDependencies": {
